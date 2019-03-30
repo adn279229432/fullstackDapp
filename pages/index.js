@@ -1,7 +1,9 @@
 import React,{Component} from 'react';
 import factory from '../ethereum/factory';
-import { Card } from 'semantic-ui-react'
-
+import { Card } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
+import Layout from '../components/Layout';
+import {Link} from '../routes';
 // export default ()=>{
 //
 //   return <h1>hello index!</h1>;
@@ -19,10 +21,10 @@ class CompainIndex extends Component{
   //   console.log(campain);\
   // }
   renderCampain(){
-    const item = this.props.campain.map(address=>{
+    const items = this.props.campain.map(address=>{
         return {
           header:address,
-          description:<a>查看众筹</a>,
+          description:<Link route={`/compains/${address}`}><a>查看众筹</a></Link>,
           fluid:true
         }
     });
@@ -30,11 +32,17 @@ class CompainIndex extends Component{
   }
   render(){
     return(
+      <Layout>
         <div>
-        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css"/>
-        {this.renderCampain()}
-        </div>
+        <h3>众筹列表</h3>
 
+        <Link route="/compains/new">
+
+        <Button floated='right' content='创建众筹' icon='add' labelPosition='left' primary/>
+        </Link>
+  {this.renderCampain()}
+        </div>
+</Layout>
     );
 
   }
